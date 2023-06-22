@@ -18,3 +18,5 @@ def test_success_login(driver):
     login_page = LoginPage(driver)
     login_page.fill_login_form(user)
     login_page.successful_login(user)
+    # what should be checked here?
+    assert login_page.tourist_name.text == 'Maryna'  # maybe this?
