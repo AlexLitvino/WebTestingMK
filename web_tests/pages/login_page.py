@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class LoginPage:
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 5)
 
     @property
     def email_input_field(self):
@@ -22,7 +23,7 @@ class LoginPage:
 
     @property
     def signin_tab(self):
-        return self.driver.find_element(By.XPATH, "(//a[@class='tabs-component-tab-a'])[2]")
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, "(//a[@class='tabs-component-tab-a'])[2]")))
 
     @property
     def signin_button(self):
@@ -38,9 +39,7 @@ class LoginPage:
         login_button.click()
 
     def click_signin_tab(self):
-        signin_tab = self.signin_tab
-        WebDriverWait(self.driver, 9).until(EC.element_to_be_clickable(signin_tab))
-        signin_tab.click()
+        self.signin_tab.click()
 
     def enter_email(self, email):
         self.email_input_field.send_keys(email)
