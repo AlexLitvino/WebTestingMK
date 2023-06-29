@@ -2,9 +2,6 @@ import pytest
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.service import Service
 
-from web_tests.pages.page_with_logged_in_user import PageWithLoggedInUser
-
-
 @pytest.fixture()
 def driver():
     path = r''
