@@ -3,42 +3,27 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from web_tests.pages.base_page import BasePage
 
-class TouristInventory:
+
+class TouristInventory(BasePage):
     def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 5)
-
-    @property
-    def tourist_inventory_button(self):
-        return self.driver.find_element(By.XPATH, '(//div[@class="header-cabinet header__cabinet"])[1]')
-
-    @property
-    def account_settings(self):
-        return self.driver.find_element(By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[1]')
+        super().__init__(driver)
+        # self.driver = driver
+        # self.wait = WebDriverWait(driver, 5)
 
     @property
     def my_tours(self):
-        return self.driver.find_element(By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[1]')
+        return self.wait.until(EC.visibility_of_element_located(((By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[1]'))))
 
     @property
     def favorite_hotels(self):
-        return self.driver.find_element(By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[2]')
+        return self.wait.until(EC.visibility_of_element_located(((By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[2]'))))
 
     @property
     def log_out(self):
-        return self.driver.find_element(By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[3]')
-
-    def click_tourist_inventory_button(self):
-        tourist_inventory_button = self.tourist_inventory_button
-        WebDriverWait(self.driver, 12).until(EC.element_to_be_clickable(tourist_inventory_button))
-        tourist_inventory_button.click()
-
-    def click_account_settings_button(self):
-        account_settings = self.account_settings
-        WebDriverWait(self.driver, 9).until(EC.element_to_be_clickable(account_settings))
-        account_settings.click()
-        WebDriverWait(self.driver, 9).until(EC.invisibility_of_element(account_settings))
+        return self.wait.until(EC.visibility_of_element_located((By.XPATH, "(//button[contains(@class, 'btn-3')])[1]")))
+        #return self.wait.until(EC.visibility_of_element_located(((By.XPATH, '(//div[@class ="header-cabinet__dropdown-item"])[3]'))))
 
     def click_my_tours_button(self):
         my_tours = self.my_tours
@@ -53,10 +38,7 @@ class TouristInventory:
         WebDriverWait(self.driver, 9).until(EC.invisibility_of_element(favorite_hotels))
 
     def click_log_out(self):
-        log_out = self.log_out
-        WebDriverWait(self.driver, 9).until(EC.element_to_be_clickable(log_out))
-        log_out.click()
-        WebDriverWait(self.driver, 9).until(EC.invisibility_of_element(log_out))
+        self.log_out.click()
 
     def inventory_steps(self, user):
         self.click_tourist_inventory_button()

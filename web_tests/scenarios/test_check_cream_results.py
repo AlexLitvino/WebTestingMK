@@ -14,7 +14,7 @@ def test_check_cream_results(driver):
     cookie_modal_window(driver)
     cream_block = driver.find_element(By.XPATH, "(//article[@class='tour-card'])[1]")
     cream_block.click()
-    assert cream_block.is_displayed()
+    assert cream_block.is_displayed()  # at first you click and then verify taht this element is displayed. looks starnge
 
     time.sleep(6)
     departure_date = driver.find_element(By.XPATH, "//div[@class='flatpickr-wrapper']")
