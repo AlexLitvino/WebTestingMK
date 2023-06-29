@@ -10,13 +10,16 @@ def test_change_language(driver):
     2. If we have cookie_police message - accept them
     3. Click language button
     4. Change the language
+    5. Check that language is changed
     """
     cookie_modal_window(driver)
-    time.sleep(8)
     language_button = driver.find_element(By.XPATH, '(//div[@class ="header-lang"])[2]')
     language_button.click()
-    time.sleep(2)
+    time.sleep(3)
 
     new_button = driver.find_element(By.XPATH, '//ul[@class ="header-lang__list header-lang__list--visible"]')
     new_button.click()
-    time.sleep(2)
+    time.sleep(3)
+
+    check_translated_word = driver.find_element(By.XPATH, "//*[text() = 'Paieška']")
+    assert check_translated_word.is_displayed()

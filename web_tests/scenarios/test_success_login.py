@@ -1,6 +1,4 @@
-from web_tests.helpers.user import User
-from web_tests.pages.cookie_policy_on_page import cookie_modal_window
-from web_tests.pages.login_page import LoginPage
+from web_tests.pages.success_login import login_user
 
 
 def test_success_login(driver):
@@ -11,12 +9,7 @@ def test_success_login(driver):
     4. Move to SignIn tab
     5. Enter email and password
     6. Click SignIn button
+    7. Check that login is successful and user's name is viewed
     """
-    cookie_modal_window(driver)
 
-    user = User('kobamaryna@gmail.com', 'summer')
-    login_page = LoginPage(driver)
-    login_page.fill_login_form(user)
-    login_page.successful_login(user)
-    # what should be checked here?
-    assert login_page.tourist_name.text == 'Maryna'  # maybe this?
+    login_user(driver)

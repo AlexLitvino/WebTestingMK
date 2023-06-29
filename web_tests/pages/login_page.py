@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from web_tests.pages.page_with_logged_in_user import PageWithLoggedInUser
+
 
 class LoginPage:
     def __init__(self, driver):
@@ -39,7 +41,9 @@ class LoginPage:
         login_button.click()
 
     def click_signin_tab(self):
-        self.signin_tab.click()
+        signin_tab = self.signin_tab
+        WebDriverWait(self.driver, 9).until(EC.element_to_be_clickable(signin_tab))
+        signin_tab.click()
 
     def enter_email(self, email):
         self.email_input_field.send_keys(email)
@@ -53,6 +57,7 @@ class LoginPage:
         signin_button = self.signin_button
         WebDriverWait(self.driver, 9).until(EC.element_to_be_clickable(signin_button))
         signin_button.click()
+        WebDriverWait(self.driver, 9).until(EC.invisibility_of_element(signin_button))
 
     def fill_login_form(self, user):
         self.click_login_button()
@@ -60,6 +65,7 @@ class LoginPage:
         self.enter_email(user.email)
         self.enter_password(user.password)
         self.click_signin_button()
+        return PageWithLoggedInUser()
 
     def successful_login(self, user):
         return self.tourist_name
